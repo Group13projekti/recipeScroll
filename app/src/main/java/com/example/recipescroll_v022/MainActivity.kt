@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.fragment) as NavHostFragment
         navControllerLogin = navHostFragment.navController
 
-        setupActionBarWithNavController(navControllerLogin)
+        //setupActionBarWithNavController(navControllerLogin)
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
