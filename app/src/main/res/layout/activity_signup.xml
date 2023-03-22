@@ -30,12 +30,20 @@
             android:id="@+id/wlcm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to Recipe Scroll!"
+            android:text="Create Account!"
             android:textAlignment="center"
             android:textColor="#FF23C2"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/idUname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="username"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/idEmail"
@@ -54,15 +62,9 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGIN" />
-
-    <Button
-        android:id="@+id/btnNoUser"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:text="No user? Sign up" />
+        android:text="Sign up" />
 
 </LinearLayout>
