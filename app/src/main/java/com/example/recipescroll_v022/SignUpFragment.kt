@@ -43,7 +43,7 @@ class SingUpFragment : Fragment() {
                         //If sign in successful, log success to console and write user to database
                         Log.d(ContentValues.TAG, "createUserWithPassword:success")
                         Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_singUpFragment_to_postFragment)
+                        TODO("link to feedpage")
                     } else {
                         //if sign in not successful, log failure to console
                         Log.w(ContentValues.TAG, "createUserWithPassword:failure", task.exception)
