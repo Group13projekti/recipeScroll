@@ -16,7 +16,11 @@
         <action
             android:id="@+id/action_homeFragment_to_sing_up"
             app:destination="@id/singUpFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.recipescroll_v022.SignInFragment"
@@ -27,7 +31,11 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signInFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/singUpFragment"
         android:name="com.example.recipescroll_v022.SingUpFragment"
@@ -38,5 +46,14 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_singUpFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.recipescroll_v022.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
 </navigation>
