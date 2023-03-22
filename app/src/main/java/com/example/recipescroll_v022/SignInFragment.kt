@@ -42,7 +42,7 @@ class SignInFragment : Fragment() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "Sign in successful")
                     Toast.makeText(requireActivity(), "Logged in", Toast.LENGTH_SHORT).show()
-                    //goPostActivity()
+                    findNavController().navigate(R.id.action_signInFragment_to_postFragment)
                 } else {
                     Log.i(TAG, "Sign in failed", task.exception)
                     Toast.makeText(requireActivity(), "Authentication failed", Toast.LENGTH_SHORT).show()
