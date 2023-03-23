@@ -13,14 +13,14 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-
-
-
 
 class SingUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +32,44 @@ class SingUpFragment : Fragment() {
 
         auth = Firebase.auth
 
-        val txtEmail = view.findViewById<EditText>(R.id.email).toString()
-        val txtPassword = view.findViewById<EditText>(R.id.password).toString()
+        val txtEmail = view.findViewById<EditText>(R.id.email)
+        val txtPassword = view.findViewById<EditText>(R.id.password)
         val btnSubmit =  view.findViewById<Button>(R.id.submitsignupbtn)
+        val txtName = view.findViewById<EditText>(R.id.name)
+        val txtUname = view.findViewById<EditText>(R.id.username)
 
         btnSubmit.setOnClickListener {
-            auth.createUserWithEmailAndPassword(txtEmail, txtPassword)
+            btnSubmit.isEnabled = false
+            val sEmail = txtEmail.text.toString()
+            val sPassword = txtPassword.text.toString()
+            val sName = txtName.text.toString()
+            val sUname = txtUname.text.toString()
+
+            if (sEmail.isBlank() || sPassword.isBlank()) {
+                return@setOnClickListener
+            }
+
+            auth.createUserWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(requireActivity()) { task ->
+
                     if (task.isSuccessful) {
                         //If sign in successful, log success to console and write user to database
+
+                        database = FirebaseDatabase.getInstance().getReference("Users")
+                        val user = userDB(sName, sUname, sEmail)
+                        database.child(sUname).setValue(user).addOnSuccessListener {
+                            Log.d(ContentValues.TAG,"DatabaseInsert:success" )
+                        }.addOnFailureListener {
+                            Log.w(ContentValues.TAG, "DatabaseInsert:Failure", task.exception)
+                        }
+
                         Log.d(ContentValues.TAG, "createUserWithPassword:success")
                         Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
-                        TODO("link to feedpage")
+                        //TODO("link to feedpage")
                     } else {
                         //if sign in not successful, log failure to console
-                        Log.w(ContentValues.TAG, "createUserWithPassword:failure", task.exception)
+
+                        Log.w(ContentValues.TAG, sEmail, task.exception)
                         Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_SHORT).show()
 
                     }
