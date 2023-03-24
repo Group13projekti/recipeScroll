@@ -1,5 +1,6 @@
 package com.example.recipescroll_v022
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -42,13 +43,15 @@ class SignInFragment : Fragment() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "Sign in successful")
                     Toast.makeText(requireActivity(), "Logged in", Toast.LENGTH_SHORT).show()
-                    TODO("link to feedpage")
+                    val intent = Intent(this.context, FeedActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Log.i(TAG, "Sign in failed", task.exception)
                     Toast.makeText(requireActivity(), "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
 
         btnBack.setOnClickListener {
             Log.d(TAG, "back button")
@@ -57,5 +60,6 @@ class SignInFragment : Fragment() {
 
         return view
     }
+
 
 }
