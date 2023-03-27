@@ -68,7 +68,7 @@ class SingUpFragment : Fragment() {
                         //TODO("link to feedpage")
                     } else {
                         //if sign in not successful, log failure to console
-
+                        btnSubmit.isEnabled = true
                         Log.w(ContentValues.TAG, sEmail, task.exception)
                         Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_SHORT).show()
 
