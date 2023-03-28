@@ -13,14 +13,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class SingUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private lateinit var database: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +54,15 @@ class SingUpFragment : Fragment() {
                     if (task.isSuccessful) {
                         //If sign in successful, log success to console and write user to database
 
-                        database = FirebaseDatabase.getInstance().getReference("Users")
+                        database = FirebaseFirestore.getInstance()
                         val user = userDB(sName, sUname, sEmail)
-                        database.child(sUname).setValue(user).addOnSuccessListener {
+                        database.collection("users").document(sUname)
+                            .set(user)
+                            .addOnSuccessListener {
                             Log.d(ContentValues.TAG,"DatabaseInsert:success" )
                         }.addOnFailureListener {
                             Log.w(ContentValues.TAG, "DatabaseInsert:Failure", task.exception)
+                                return@addOnFailureListener
                         }
 
                         Log.d(ContentValues.TAG, "createUserWithPassword:success")
@@ -68,7 +70,7 @@ class SingUpFragment : Fragment() {
                         //TODO("link to feedpage")
                     } else {
                         //if sign in not successful, log failure to console
-
+                        btnSubmit.isEnabled = true
                         Log.w(ContentValues.TAG, sEmail, task.exception)
                         Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_SHORT).show()
 
