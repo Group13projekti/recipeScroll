@@ -1,10 +1,8 @@
 package com.example.recipescroll_v022
 
 
-import android.content.ContentValues.TAG
 import android.content.*
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +20,8 @@ class HomeFragment : Fragment() {
     ): View? {
 
         val auth = FirebaseAuth.getInstance()
+
+        // Remember user and skip login/signup phase
         if (auth.currentUser != null) {
             goFeedActivity()
         }

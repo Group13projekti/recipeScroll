@@ -53,10 +53,10 @@ class SingUpFragment : Fragment() {
 
                     if (task.isSuccessful) {
                         //If sign in successful, log success to console and write user to database
-
+                        val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
                         database = FirebaseFirestore.getInstance()
                         val user = userDB(sName, sUname, sEmail)
-                        database.collection("users").document(sUname)
+                        database.collection("users").document(uidUser)
                             .set(user)
                             .addOnSuccessListener {
                             Log.d(ContentValues.TAG,"DatabaseInsert:success" )
