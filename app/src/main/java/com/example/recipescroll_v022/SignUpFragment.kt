@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.recipescroll_v022.models.UserDB
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -55,7 +56,7 @@ class SingUpFragment : Fragment() {
                         //If sign in successful, log success to console and write user to database
                         val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
                         database = FirebaseFirestore.getInstance()
-                        val user = userDB(sName, sUname, sEmail)
+                        val user = UserDB(sName, sUname, sEmail)
                         database.collection("users").document(uidUser)
                             .set(user)
                             .addOnSuccessListener {
