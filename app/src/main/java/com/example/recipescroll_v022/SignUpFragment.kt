@@ -45,9 +45,29 @@ class SingUpFragment : Fragment() {
             val sName = txtName.text.toString()
             val sUname = txtUname.text.toString()
 
-            if (sEmail.isBlank() || sPassword.isBlank()) {
+            if (sEmail.isBlank() || sPassword.isBlank() || sName.isBlank() || sUname.isBlank()) {
                 return@setOnClickListener
             }
+
+            database = FirebaseFirestore.getInstance()
+            database.collection("users")
+                .whereEqualTo("uname", sUname)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            if (document.exists()) {
+                                Log.d(ContentValues.TAG, "UsernameCheck: Already exists!")
+                                Toast.makeText(requireActivity(), "Username already exists!", Toast.LENGTH_SHORT).show()
+                                btnSubmit.setOnClickListener(null)
+                            } else {
+                                Log.d(ContentValues.TAG, "UsernameCheck: Username available")
+                            }
+                        }
+                    } else {
+                        Log.d(ContentValues.TAG, "ErrorGettingDocuments: ", task.exception)
+                    }
+                }
 
             auth.createUserWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(requireActivity()) { task ->
@@ -73,7 +93,7 @@ class SingUpFragment : Fragment() {
                         //if sign in not successful, log failure to console
                         btnSubmit.isEnabled = true
                         Log.w(ContentValues.TAG, sEmail, task.exception)
-                        Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), "Something went wrong: " + task.exception, Toast.LENGTH_SHORT).show()
 
                     }
                 }
