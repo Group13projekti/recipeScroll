@@ -1,6 +1,6 @@
 package com.example.recipescroll_v022
 
-import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+
+private const val TAG = "SignUpFragment"
 
 class SingUpFragment : Fragment() {
 
@@ -45,9 +47,30 @@ class SingUpFragment : Fragment() {
             val sName = txtName.text.toString()
             val sUname = txtUname.text.toString()
 
-            if (sEmail.isBlank() || sPassword.isBlank()) {
+            if (sEmail.isBlank() || sPassword.isBlank() || sName.isBlank() || sUname.isBlank()) {
                 return@setOnClickListener
             }
+
+            database = FirebaseFirestore.getInstance()
+            database.collection("users")
+                .whereEqualTo("uname", sUname)
+                .get()
+                .addOnCompleteListener { task ->
+
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            if (document.exists()) {
+                                Log.d(TAG, "UsernameCheck: Already exists!")
+                                Toast.makeText(requireActivity(), "Username already exists!", Toast.LENGTH_SHORT).show()
+                                btnSubmit.setOnClickListener(null)
+                            } else {
+                                Log.d(TAG, "UsernameCheck: Username available")
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, "ErrorGettingDocuments: ", task.exception)
+                    }
+                }
 
             auth.createUserWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(requireActivity()) { task ->
@@ -60,20 +83,22 @@ class SingUpFragment : Fragment() {
                         database.collection("users").document(uidUser)
                             .set(user)
                             .addOnSuccessListener {
-                            Log.d(ContentValues.TAG,"DatabaseInsert:success" )
+                            Log.d(TAG,"DatabaseInsert:success" )
                         }.addOnFailureListener {
-                            Log.w(ContentValues.TAG, "DatabaseInsert:Failure", task.exception)
+                            Log.w(TAG, "DatabaseInsert:Failure", task.exception)
                                 return@addOnFailureListener
                         }
 
-                        Log.d(ContentValues.TAG, "createUserWithPassword:success")
+                        Log.d(TAG, "createUserWithPassword:success")
                         Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
-                        //TODO("link to feedpage")
+                        val intent = Intent(this.context, FeedActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
                     } else {
                         //if sign in not successful, log failure to console
                         btnSubmit.isEnabled = true
-                        Log.w(ContentValues.TAG, sEmail, task.exception)
-                        Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                        Log.w(TAG, sEmail, task.exception)
+                        Toast.makeText(requireActivity(), "Something went wrong: " + task.exception, Toast.LENGTH_SHORT).show()
 
                     }
                 }
