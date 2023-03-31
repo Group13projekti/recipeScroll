@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout_profile_frag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/yellow">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/profile_toolbar"
@@ -27,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:maxLines="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -37,15 +38,15 @@
                     android:layout_height="30dp"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@+id/options_view"
-                    android:src="@mipmap/new_post" />
+                    android:src="@drawable/baseline_add_box_24" />
 
                 <ImageView
                     android:id="@+id/options_view"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="-3dp"
-                    android:src="@mipmap/options" />
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/baseline_menu_24" />
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -79,12 +80,14 @@
                 android:orientation="horizontal"
                 android:padding="16dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/pro_image_profile_frag"
+                    android:layout_height="match_parent"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    tools:src="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="profilepic"/>
+                    app:civ_circle_background_color="@color/yellow"
+                    app:civ_border_color="@color/grey"
+                    android:src="@drawable/ic_pfp_ramen_dining_24"
+                    app:civ_border_width="3dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
