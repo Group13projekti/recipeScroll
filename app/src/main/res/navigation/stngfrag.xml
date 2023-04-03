@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stngfrag"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.recipescroll_v022.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_logOut_Fragment"
+            app:destination="@id/logOut_Fragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_deleteUserFragment"
+            app:destination="@id/deleteUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteUserFragment"
+        android:name="com.example.recipescroll_v022.DeleteUserFragment"
+        android:label="DeleteUserFragment" >
+        <action
+            android:id="@+id/action_deleteUserFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_deleteUserFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/logOut_Fragment"
+        android:name="com.example.recipescroll_v022.LogOut_Fragment"
+        android:label="fragment_log_out_"
+        tools:layout="@layout/fragment_log_out_" >
+        <action
+            android:id="@+id/action_logOut_Fragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.recipescroll_v022.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>
