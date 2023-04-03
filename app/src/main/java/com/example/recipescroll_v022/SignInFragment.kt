@@ -44,6 +44,7 @@ class SignInFragment : Fragment() {
                     Log.d(TAG, "Sign in successful")
                     Toast.makeText(requireActivity(), "Logged in", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this.context, FeedActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
                 } else {
                     Log.i(TAG, "Sign in failed", task.exception)
