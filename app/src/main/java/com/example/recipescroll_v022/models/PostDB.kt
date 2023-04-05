@@ -8,3 +8,4 @@ data class PostDB(
     @get:PropertyName("creation_time_ms") @set:PropertyName("creation_time_ms") var creationTime: Long = 0,
     var user: UserDB? = null
 )
+
