@@ -10,4 +10,7 @@
     <string name="sign_up">Sign up</string>
     <string name="person_name">Your name</string>
     <string name="email">Email</string>
+    <string name="_1_hour_ago">1 hour ago</string>
+    <string name="todo">TODO</string>
+    <string name="juustopuuro">Juustopuuro</string>
 </resources>
