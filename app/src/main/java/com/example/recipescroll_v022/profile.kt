@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -49,11 +48,20 @@ class profile : Fragment() {
                         val bio = document.getString("bio")
                         bioTextView.text = bio
                         val profileImageUrl = document.getString("profileImageUrl")
-                        Picasso.get()
-                            .load(profileImageUrl)
-                            .into(pro_image_profile_frag)
+
+                        if (profileImageUrl != null && profileImageUrl.isNotEmpty()) {
+                            Picasso.get()
+                                .load(profileImageUrl)
+                                .placeholder(R.drawable.placeholder_image)
+                                .into(pro_image_profile_frag)
+                        } else {
+                            Picasso.get()
+                                .load(R.drawable.placeholder_image)
+                                .into(pro_image_profile_frag)
+                        }
                     } else {
                         Log.d(TAG, "!!!Ei löytynyt dokumenttia")
+
                     }
                 }
                 .addOnFailureListener { exception ->
