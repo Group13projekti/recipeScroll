@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "573366652942",
+    "firebase_url": "https://recipescroll-fcc61-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "recipescroll-fcc61",
+    "storage_bucket": "recipescroll-fcc61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573366652942:android:5bb842a1d1dde0ebea6c5f",
+        "android_client_info": {
+          "package_name": "com.example.group_project_recipebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcXZfCgfDvZBMYoSJKQvMi3KsI0lLBR7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573366652942:android:63caaeb693539883ea6c5f",
+        "android_client_info": {
+          "package_name": "com.example.recipescroll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcXZfCgfDvZBMYoSJKQvMi3KsI0lLBR7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573366652942:android:86d7aacab2783807ea6c5f",
+        "android_client_info": {
+          "package_name": "com.example.recipescroll_v022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcXZfCgfDvZBMYoSJKQvMi3KsI0lLBR7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573366652942-oub34n3quup2gq5l0lmbpb5677tedsor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
