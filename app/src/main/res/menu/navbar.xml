@@ -11,4 +11,8 @@
     <item android:title="Favorites"
         android:id="@+id/favorites"
         android:icon="@drawable/baseline_favorite_24"/>
+    <item android:title="Post"
+        android:id="@+id/postPage"
+        android:icon="@drawable/ic_baseline_camera_alt_24" />
+
 </menu>
