@@ -6,10 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:minSdkVersion="25"
         tools:ignore="ScopedStorage" />
-
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeScroll_v02"
         tools:targetApi="31">
+        <activity
+            android:name=".AccountSettingsActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -36,10 +39,10 @@
         </activity>
         <activity
             android:name=".FeedActivity"
-            android:label="Preferences"
-            android:exported="true">
+            android:exported="true"
+            android:label="Preferences">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
