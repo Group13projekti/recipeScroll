@@ -14,7 +14,7 @@ import com.google.firebase.firestore.Query
 
 private const val TAG = "PostsActivity"
 
-class FrontPage : Fragment() {
+open class FrontPage : Fragment() {
 
     private lateinit var firestoreDb: FirebaseFirestore
     private lateinit var posts: MutableList<PostDB>
@@ -38,6 +38,7 @@ class FrontPage : Fragment() {
             .collection("posts")
             .limit(20)
             .orderBy("creation_time_ms" , Query.Direction.DESCENDING)
+
         postReference.addSnapshotListener { snapshot, exeption ->
             if (exeption != null  || snapshot == null){
                 Log.e(TAG, "Exeption when querying post" , exeption)

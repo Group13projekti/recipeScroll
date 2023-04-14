@@ -1,12 +1,13 @@
 package com.example.recipescroll_v022
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -14,7 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class profile : Fragment() {
+open class profile : FrontPage() {
+
     private lateinit var usernameTextView: TextView
     private lateinit var nameTextView: TextView
     private lateinit var bioTextView: TextView
@@ -25,11 +27,22 @@ class profile : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val accountSettingsButton = view.findViewById<Button>(R.id.edit_profile)
+        accountSettingsButton.setOnClickListener {
+            try {val intent = Intent(activity, AccountSettingsActivity::class.java)
+            startActivity (intent)
+                Log.d(TAG, "onCreateView: Starting")
+            } catch (e: Exception) {
+                Log.e("ERROR", "Error starting AccountSettingsActivity: $e")
+            }
+        }
+
         usernameTextView = view.findViewById(R.id.usernameTextView)
         nameTextView = view.findViewById(R.id.nameTextView)
         bioTextView = view.findViewById(R.id.bioTextView)
         pro_image_profile_frag = view.findViewById(R.id.pro_image_profile_frag)
         return view
+
     }
 
     override fun onStart() {
@@ -63,11 +76,16 @@ class profile : Fragment() {
                         Log.d(TAG, "!!!Ei löytynyt dokumenttia")
 
                     }
+
                 }
                 .addOnFailureListener { exception ->
                     // handle exception
                     Log.d(TAG, "Dokumentin haku epäonnistui: $exception")
                 }
+
+
         }
+
     }
+
 }
