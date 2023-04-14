@@ -1,6 +1,7 @@
 package com.example.recipescroll_v022
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -11,9 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.Empty
 import com.squareup.picasso.Picasso
-import java.sql.Types.NULL
 
 private const val TAG = "AccountSettingsActivity"
 
@@ -37,6 +36,8 @@ class AccountSettingsActivity : AppCompatActivity() {
         val etUserName = findViewById<EditText>(R.id.username_profile_frag)
         val etBio = findViewById<EditText>(R.id.bio_profile_frag)
         val profileImageView = findViewById<ImageView>(R.id.profile_image_view)
+
+
         // Haetaan tallennettu nimi Firestoresta ja asetetaan se editTextiin
         db.collection("users").document(user.uid)
             .get().addOnSuccessListener{ document ->
@@ -61,9 +62,12 @@ class AccountSettingsActivity : AppCompatActivity() {
                 profileImageView.setImageResource(R.drawable.placeholder_image)
             }
         }.addOnFailureListener { expection ->
-            Log.e(TAG, "Error loading profilepicture")
+            Log.e(TAG, "Error loading profile-picture")
         }
 
+        btnCloseProf.setOnClickListener{
+            goBackActivity()
+        }
         saveBtn.setOnClickListener {
             val newFullName = etFullName.text.toString()
             val newUserName = etUserName.text.toString()
@@ -116,5 +120,10 @@ class AccountSettingsActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun goBackActivity() {
+        val intent = Intent(this, profile::class.java)
+        startActivity(intent)
     }
 }
