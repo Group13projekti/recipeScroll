@@ -9,7 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+
 
 private const val TAG = "DeleteUserFragment"
 
@@ -22,11 +27,11 @@ class DeleteUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_delete_user, container, false)
-        val DeleteBtn = view.findViewById<Button>(R.id.DeleteBtn)
-        val Cancel1Btn = view.findViewById<Button>(R.id.Cancel1Btn)
+        val deleteBtn = view.findViewById<Button>(R.id.DeleteBtn)
+        val cancel1Btn = view.findViewById<Button>(R.id.Cancel1Btn)
         val checkBox = view.findViewById<CheckBox>(R.id.checkBox1)
 
-        DeleteBtn.setOnClickListener {
+        deleteBtn.setOnClickListener {
             val user = Firebase.auth.currentUser!!
             val credential = EmailAuthProvider
                 .getCredential("user@example.com", "password1234")
@@ -46,7 +51,7 @@ class DeleteUserFragment : Fragment() {
                 }
         }}
 
-        Cancel1Btn.setOnClickListener {
+        cancel1Btn.setOnClickListener {
             Log.d(TAG, "cancel button")
             findNavController().navigate(R.id.action_logOut_Fragment_to_settingsFragment)
         }

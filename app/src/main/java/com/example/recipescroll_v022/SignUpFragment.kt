@@ -76,26 +76,25 @@ class SingUpFragment : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
 
                     if (task.isSuccessful) {
-                        //If sign in successful, log success to console and write user to database
-                        val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-                        database = FirebaseFirestore.getInstance()
-                        val user = UserDB(sName, sUname, sEmail)
-                        database.collection("users").document(uidUser)
-                            .set(user)
-                            .addOnSuccessListener {
-                            Log.d(TAG,"DatabaseInsert:success" )
-                        }.addOnFailureListener {
-                            Log.w(TAG, "DatabaseInsert:Failure", task.exception)
-                                return@addOnFailureListener
-                        }
-
-                        Log.d(TAG, "createUserWithPassword:success")
-                        Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this.context, FeedActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
                     } else {
-                        //if sign in not successful, log failure to console
+                        //if sign in not successful, log failure to console                        //If sign in successful, log success to console and write user to database
+                        //                        val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+                        //                        database = FirebaseFirestore.getInstance()
+                        //                        val user = UserDB(sName, sUname, sEmail)
+                        //                        database.collection("users").document(uidUser)
+                        //                            .set(user)
+                        //                            .addOnSuccessListener {
+                        //                            Log.d(TAG,"DatabaseInsert:success" )
+                        //                        }.addOnFailureListener {
+                        //                            Log.w(TAG, "DatabaseInsert:Failure", task.exception)
+                        //                                return@addOnFailureListener
+                        //                        }
+                        //
+                        //                        Log.d(TAG, "createUserWithPassword:success")
+                        //                        Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
+                        //                        val intent = Intent(this.context, FeedActivity::class.java)
+                        //                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        //                        startActivity(intent)
                         btnSubmit.isEnabled = true
                         Log.w(TAG, sEmail, task.exception)
                         Toast.makeText(requireActivity(), "Something went wrong: " + task.exception, Toast.LENGTH_SHORT).show()

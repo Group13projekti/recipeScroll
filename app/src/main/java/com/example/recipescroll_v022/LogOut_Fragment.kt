@@ -21,14 +21,14 @@ class LogOut_Fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_log_out_, container, false)
-        val LogOutBtn = view.findViewById<Button>(R.id.LogOutBtn)
-        val CancelBtn = view.findViewById<Button>(R.id.CancelBtn)
+        val logOutBtn = view.findViewById<Button>(R.id.LogOutBtn)
+        val cancelBtn = view.findViewById<Button>(R.id.CancelBtn)
 
-        LogOutBtn.setOnClickListener {
+        logOutBtn.setOnClickListener {
 
         }
 
-        CancelBtn.setOnClickListener {
+        cancelBtn.setOnClickListener {
             Log.d(TAG, "cancel button")
             findNavController().navigate(R.id.action_logOut_Fragment_to_settingsFragment)
         }
