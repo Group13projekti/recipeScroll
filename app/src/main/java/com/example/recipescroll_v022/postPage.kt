@@ -1,9 +1,7 @@
 package com.example.recipescroll_v022
 
+import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.content.ContentResolver
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,27 +10,27 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.GridLayout
-import android.widget.ImageView
+import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
+import com.example.recipescroll_v022.loaders.ImageLoader
+import com.example.recipescroll_v022.models.PostDB
+import com.example.recipescroll_v022.models.UserDB
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
-import java.io.IOException
 
 
 private const val TAG = "PostPage"
-private const val PICK_PHOTO_CODE = 6334
 
 class PostPage : Fragment() {
 
-    private lateinit var db: FirebaseFirestore
-    private lateinit var storage: StorageReference
+    private lateinit var imageLoader: ImageLoader
+    private lateinit var selectImageLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +39,18 @@ class PostPage : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_post_page, container, false)
         val displayMetrics = resources.displayMetrics
+        val curUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
         val imageView = view.findViewById<ImageView>(R.id.uploadedImage)
         val imagePickButton = view.findViewById<Button>(R.id.imageUpload)
+        val foodDesc = view.findViewById<EditText>(R.id.postDescription)
         val dryButton = view.findViewById<Button>(R.id.dryText)
         val wetButton = view.findViewById<Button>(R.id.wetText)
         val spiceButton = view.findViewById<Button>(R.id.spiceText)
         val dairyButton = view.findViewById<Button>(R.id.dairyText)
         val proButton = view.findViewById<Button>(R.id.proText)
         val aroButton = view.findViewById<Button>(R.id.aroText)
+        val subButton = view.findViewById<Button>(R.id.btnSubmit)
 
         val dryIngredientsList = view.findViewById<GridLayout>(R.id.dryIngredientList)
         val wetIngredientsList = view.findViewById<GridLayout>(R.id.wetIngredientList)
@@ -59,6 +60,8 @@ class PostPage : Fragment() {
         val aroList = view.findViewById<GridLayout>(R.id.aroList)
 
         val db = Firebase.firestore
+        val dbPosts = db.collection("posts")
+        val dbUser = db.collection("users").document(curUserUid!!)
         val dryRef = db.collection("ingredients").document("dry_ingredients")
         val wetRef = db.collection("ingredients").document("wet_ingredients")
         val spiceRef = db.collection("ingredients").document("spices")
@@ -80,25 +83,39 @@ class PostPage : Fragment() {
         proList.visibility = View.GONE
         aroList.visibility = View.GONE
 
+        var imageUri = ""
+        val ingLists = mutableListOf(dryIngredientsList, wetIngredientsList, spiceList, dairyList, proList, aroList)
+        val checkedItems = mutableListOf<String>()
         val screenWidth = displayMetrics.widthPixels
         val screenHeight = displayMetrics.heightPixels
         val checkboxSize = minOf(screenWidth, screenHeight) / 4
 
+        imageLoader = ImageLoader(requireContext())
+
+        selectImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val selectedImageUri: Uri? = result.data?.data
+                if (selectedImageUri != null) {
+                    imageLoader.loadImage(selectedImageUri.toString(), imageView)
+                    imageUri = selectedImageUri.toString()
+                }
+            }
+        }
+
+        var currUname: String? = null
+        var profilePic = ""
+
+        dbUser.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    currUname = document.getString("uname")
+                    profilePic = document.getString("profileImageUrl").toString()
+                }
+            }
+
         imagePickButton.setOnClickListener {
             // Get image from external storage
-            val imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
-            val inputStream = requireContext().contentResolver.openInputStream(imageUri)
-            try {
-                val bitmap: Bitmap? = BitmapFactory.decodeStream(inputStream)
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                inputStream?.close()
-            }
+            openGalleryForImage()
         }
 
         dryButton.setOnClickListener {
@@ -132,6 +149,31 @@ class PostPage : Fragment() {
             aroList.visibility = if (aroV) View.VISIBLE else View.GONE
         }
 
+        subButton.setOnClickListener {
+            val sDesc = foodDesc.text.toString()
+            val sImage = imageUri
+            val sTime: Long = System.currentTimeMillis()
+            for (i in 0 until ingLists.count()) {
+                val ingCount = ingLists.elementAt(i)
+                for (x in 0 until ingCount.childCount) {
+                    val views = ingCount.getChildAt(x)
+                    if (views is CheckBox && views.isChecked) {
+                        checkedItems.add(views.text.toString())
+                    }
+                }
+            }
+            val dataPost = PostDB(sDesc, sImage, sTime, checkedItems, UserDB(uname = currUname, profileImageUrl = profilePic ))
+
+            dbPosts.add(dataPost)
+                .addOnSuccessListener { documentRef ->
+                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
+                    Toast.makeText(requireActivity(), "Post submitted!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "Error adding document", e)
+                }
+        }
+
         dryRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
@@ -148,7 +190,6 @@ class PostPage : Fragment() {
                                 dryIngredientsList.addView(checkBox)
                             }
                         }
-
                     }
                 }
             }.addOnFailureListener { exception ->
@@ -278,6 +319,10 @@ class PostPage : Fragment() {
 
 
         return view
+    }
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        selectImageLauncher.launch(intent)
     }
 }
 
