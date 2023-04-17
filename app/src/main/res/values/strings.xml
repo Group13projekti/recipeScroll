@@ -20,4 +20,5 @@
     <string name="change_image">Change Image</string>
     <string name="full_name">Full Name</string>
     <string name="bio">Bio</string>
+    <string name="postpage">Postpage</string>
 </resources>
