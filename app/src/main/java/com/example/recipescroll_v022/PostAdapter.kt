@@ -45,6 +45,15 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         val isFavorite = favoriteStates[currItem.postId] ?: false
         holder.favButton.isChecked = isFavorite
 
+        holder.userDocRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = task.result?.toObject(UserDB::class.java)
+                val favorites = user?.favorites ?: emptyList()
+                if (favorites.contains(currItem.postId)) {
+                    holder.favButton.isChecked = true
+                }
+            }
+        }
 
         if (currItem.user?.profileImageUrl != null) {
             Glide.with(context)
@@ -57,11 +66,10 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
                 .into(holder.profileImage)
         }
     }
-
     inner class ViewHolder(
         itemView: View,
         val favButton: CheckBox,
-        private val userDocRef: DocumentReference,
+        val userDocRef: DocumentReference,
         private var favorites: List<String>
     ) : RecyclerView.ViewHolder(itemView) {
 
