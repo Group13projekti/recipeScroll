@@ -19,4 +19,9 @@
         android:name="com.example.recipescroll_v022.FrontPage"
         android:label="fragment_front_page"
         tools:layout="@layout/fragment_front_page" />
+    <fragment
+        android:id="@+id/postPage"
+        android:name="com.example.recipescroll_v022.PostPage"
+        android:label="fragment_post_page"
+        tools:layout="@layout/fragment_post_page" />
 </navigation>
