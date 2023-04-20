@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    private val favoriteStates = mutableMapOf<String, Boolean>()
+    private val favoriteStates = mutableMapOf<String, Boolean>()   //luodaan faovriteille statet
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,11 +39,12 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         holder.username.text = currItem.user?.uname
         Glide.with(context).load(currItem.imageUrl).into(holder.Post)
         Glide.with(context).load(currItem.user?.profileImageUrl).into(holder.profileImage)
-        holder.relativetime.text = DateUtils.getRelativeTimeSpanString(currItem.creationTime)
+        holder.relativetime.text = DateUtils.getRelativeTimeSpanString(currItem.creationTime.toLong())
         holder.description.text = currItem.description
 
         val isFavorite = favoriteStates[currItem.postId] ?: false
         holder.favButton.isChecked = isFavorite
+
 
         holder.userDocRef.get().addOnCompleteListener { task ->             //tarkistaa onko postaus favoriteissa ja laittaa favorite napin päälle jos on eli "muistaa liken"
             if (task.isSuccessful) {
@@ -117,21 +118,5 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
             }
         }
 
-        fun bind(post: PostDB) {
-            username.text = post.user?.uname
-            Glide.with(context).load(post.imageUrl).into(Post)
-            Glide.with(context).load(post.user?.profileImageUrl).into(profileImage)
-            relativetime.text = DateUtils.getRelativeTimeSpanString(post.creationTime)
-            description.text = post.description
-
-            // Check if the post is already favorited
-            if (favorites.contains(post.postId)) {
-                favButton.isChecked = true
-                favButton.text = "Favorited"
-            } else {
-                favButton.isChecked = false
-                favButton.text = "Add to Favorites"
-            }
-        }
     }
     }
