@@ -26,46 +26,76 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="30dp"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                android:contentDescription="@string/pictureoffood" />
 
             <Button
                 android:id="@+id/imageUpload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Upload image" />
+                android:text="@string/upload_image" />
 
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
-                android:text="Description" />
+                android:text="@string/description" />
 
             <EditText
                 android:id="@+id/postDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine"
                 android:importantForAutofill="no"
-                tools:ignore="LabelFor" />
+                android:inputType="textMultiLine"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
             <Button
-                android:id="@+id/dryText"
+                android:id="@+id/stepBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_buttons"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Dry Ingredients +"/>
+                android:text="@string/instructions"/>
+
+            <EditText
+                android:id="@+id/stepList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:gravity="top|start"
+                android:hint="@string/step_instructions"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/dryText"
+                android:background="@drawable/rounded_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/dry_ingredients"/>
 
             <GridLayout
                 android:id="@+id/dryIngredientList"
@@ -74,17 +104,19 @@
                 android:columnCount="3"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/wetText"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Wet Ingredients +"/>
+                android:text="@string/wet_ingredients"/>
 
             <GridLayout
                 android:id="@+id/wetIngredientList"
@@ -98,13 +130,14 @@
 
             <Button
                 android:id="@+id/spiceText"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Spices +"/>
+                android:text="@string/spices"/>
 
             <GridLayout
                 android:id="@+id/spiceList"
@@ -118,13 +151,14 @@
 
             <Button
                 android:id="@+id/dairyText"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Dairy +"/>
+                android:text="@string/dairy"/>
 
             <GridLayout
                 android:id="@+id/dairyList"
@@ -138,13 +172,14 @@
 
             <Button
                 android:id="@+id/proText"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Produce +"/>
+                android:text="@string/produce"/>
 
             <GridLayout
                 android:id="@+id/proList"
@@ -158,13 +193,14 @@
 
             <Button
                 android:id="@+id/aroText"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Aromatics +"/>
+                android:text="@string/aromatics"/>
 
             <GridLayout
                 android:id="@+id/aroList"
@@ -178,19 +214,21 @@
 
             <Button
                 android:id="@+id/btnSubmit"
+                android:background="@drawable/rounded_buttons"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Submit" />
+                android:text="@string/submit" />
 
             <TextView
                 android:id="@+id/filler"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
