@@ -45,7 +45,7 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         val isFavorite = favoriteStates[currItem.postId] ?: false
         holder.favButton.isChecked = isFavorite
 
-        holder.userDocRef.get().addOnCompleteListener { task ->
+        holder.userDocRef.get().addOnCompleteListener { task ->             //tarkistaa onko postaus favoriteissa ja laittaa favorite napin päälle jos on eli "muistaa liken"
             if (task.isSuccessful) {
                 val user = task.result?.toObject(UserDB::class.java)
                 val favorites = user?.favorites ?: emptyList()
