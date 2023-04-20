@@ -11,8 +11,6 @@
     <item android:title="@string/new_post"
 
         android:icon="@drawable/baseline_add_box_24"/>
-    <item android:title="@string/favorites"
-        android:id="@+id/favorites"
-        android:icon="@drawable/baseline_favorite_24"/>
+
 </menu>
 
