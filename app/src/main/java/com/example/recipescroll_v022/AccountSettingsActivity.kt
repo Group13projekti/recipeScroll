@@ -36,6 +36,15 @@ class AccountSettingsActivity : AppCompatActivity() {
         val etUserName = findViewById<EditText>(R.id.username_profile_frag)
         val etBio = findViewById<EditText>(R.id.bio_profile_frag)
         val profileImageView = findViewById<ImageView>(R.id.profile_image_view)
+        val logOutBtn = findViewById<Button>(R.id.logout_btn)
+
+        logOutBtn.setOnClickListener{
+            FirebaseAuth.getInstance().signOut() // Kirjaa käyttäjän ulos Firebase Auth -palvelusta
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // Tyhjentää pinoon liittyvät aktiviteetit ja käynnistää uudelleen
+            startActivity(intent)
+            finish()
+        }
 
 
         // Haetaan tallennettu nimi Firestoresta ja asetetaan se editTextiin
@@ -121,6 +130,8 @@ class AccountSettingsActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun goBackActivity() {
         val intent = Intent(this, profile::class.java)

@@ -20,6 +20,8 @@ open class FrontPage : Fragment() {
     private lateinit var posts: MutableList<PostDB>
     private lateinit var adapter: PostAdapter
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +30,13 @@ open class FrontPage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_front_page, container, false)
         val postsView = view.findViewById<RecyclerView>(R.id.rvPosts)
 
+
         posts = mutableListOf()
         adapter = PostAdapter(this, posts)
         postsView.adapter = adapter
         postsView.layoutManager = LinearLayoutManager(context)
+        
+
 
         firestoreDb = FirebaseFirestore.getInstance()
         val postReference = firestoreDb
@@ -51,6 +56,7 @@ open class FrontPage : Fragment() {
 
         return view
     }
+
 }
 
 //firebase connection posts.addAll(postList) ja adapter.notifyDataSetChanged() ja posts.clear()
