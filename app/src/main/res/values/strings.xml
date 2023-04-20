@@ -21,4 +21,16 @@
     <string name="full_name">Full Name</string>
     <string name="bio">Bio</string>
     <string name="postpage">Postpage</string>
+    <string name="upload_image">Upload image</string>
+    <string name="description">Description</string>
+    <string name="dry_ingredients">Dry Ingredients +</string>
+    <string name="wet_ingredients">Wet Ingredients +</string>
+    <string name="spices">Spices +</string>
+    <string name="dairy">Dairy +</string>
+    <string name="produce">Produce +</string>
+    <string name="aromatics">Aromatics +</string>
+    <string name="pictureoffood">pictureoffood</string>
+    <string name="steps">Steps +</string>
+    <string name="step_instructions">Write instructions for this recipe</string>
+    <string name="instructions">Instructions +</string>
 </resources>

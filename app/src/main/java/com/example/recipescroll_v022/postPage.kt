@@ -14,15 +14,14 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipescroll_v022.loaders.ImageLoader
 import com.example.recipescroll_v022.models.PostDB
 import com.example.recipescroll_v022.models.UserDB
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
 
 
 private const val TAG = "PostPage"
@@ -44,6 +43,7 @@ class PostPage : Fragment() {
         val imageView = view.findViewById<ImageView>(R.id.uploadedImage)
         val imagePickButton = view.findViewById<Button>(R.id.imageUpload)
         val foodDesc = view.findViewById<EditText>(R.id.postDescription)
+        val stepButton = view.findViewById<Button>(R.id.stepBtn)
         val dryButton = view.findViewById<Button>(R.id.dryText)
         val wetButton = view.findViewById<Button>(R.id.wetText)
         val spiceButton = view.findViewById<Button>(R.id.spiceText)
@@ -52,6 +52,7 @@ class PostPage : Fragment() {
         val aroButton = view.findViewById<Button>(R.id.aroText)
         val subButton = view.findViewById<Button>(R.id.btnSubmit)
 
+        val stepsList = view.findViewById<EditText>(R.id.stepList)
         val dryIngredientsList = view.findViewById<GridLayout>(R.id.dryIngredientList)
         val wetIngredientsList = view.findViewById<GridLayout>(R.id.wetIngredientList)
         val spiceList = view.findViewById<GridLayout>(R.id.spiceList)
@@ -69,6 +70,7 @@ class PostPage : Fragment() {
         val proRef = db.collection("ingredients").document("produce")
         val aroRef = db.collection("ingredients").document("aromatics")
 
+        var stepV = false
         var dryV = false
         var wetV = false
         var spiceV = false
@@ -118,6 +120,11 @@ class PostPage : Fragment() {
             openGalleryForImage()
         }
 
+        stepButton.setOnClickListener {
+            stepV = !stepV
+            stepsList.visibility = if (stepV) View.VISIBLE else View.GONE
+        }
+
         dryButton.setOnClickListener {
             //toggle visibility of ingredients
             dryV = !dryV
@@ -152,6 +159,7 @@ class PostPage : Fragment() {
         subButton.setOnClickListener {
             val sDesc = foodDesc.text.toString()
             val sImage = imageUri
+            val sInstructions = stepsList.text.toString()
             val sTime: Long = System.currentTimeMillis()
             for (i in 0 until ingLists.count()) {
                 val ingCount = ingLists.elementAt(i)
@@ -162,12 +170,15 @@ class PostPage : Fragment() {
                     }
                 }
             }
-            val dataPost = PostDB(sDesc, sImage, sTime, checkedItems, UserDB(uname = currUname, profileImageUrl = profilePic ))
+            val dataPost = PostDB(sDesc, sImage, sTime, sInstructions, checkedItems, UserDB(uname = currUname, profileImageUrl = profilePic ))
 
             dbPosts.add(dataPost)
                 .addOnSuccessListener { documentRef ->
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
                     Toast.makeText(requireActivity(), "Post submitted!", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(requireActivity(), FeedActivity::class.java)
+                    startActivity(intent)
                 }
                 .addOnFailureListener { e ->
                     Log.e(TAG, "Error adding document", e)
