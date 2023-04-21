@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <drawable name="button_red_backround">#FF0000</drawable>
+    <string-array name="ingredients" />
 </resources>
