@@ -8,4 +8,5 @@ data class UserDB(
     val email: String? = null,
     @get:PropertyName("profileImageUrl") @set:PropertyName("profileImageUrl")
     var profileImageUrl: String = "",
+    var favorites: List<String> = emptyList()
 )

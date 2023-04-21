@@ -66,7 +66,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         db.collection("users").document(user.uid).get().addOnSuccessListener{ document ->
             val existingFullName = document.getString("name")
             etFullName.setText(existingFullName)
-            }
+        }
         db.collection("users").document(user.uid).get().addOnSuccessListener { document ->
             val existingUsername = document.getString("uname")
             etUserName.setText(existingUsername)
