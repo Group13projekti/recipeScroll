@@ -41,6 +41,8 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         Glide.with(context).load(currItem.user?.profileImageUrl).into(holder.profileImage)
         holder.relativetime.text = DateUtils.getRelativeTimeSpanString(currItem.creationTime.toLong())
         holder.description.text = currItem.description
+        holder.ingredients.text = currItem.ingredients.toString()
+        holder.instruction.text = currItem.instructions
 
         val isFavorite = favoriteStates[currItem.postId] ?: false
         holder.favButton.isChecked = isFavorite
@@ -74,11 +76,14 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         private var favorites: List<String>
     ) : RecyclerView.ViewHolder(itemView) {
 
+
         val username: TextView = itemView.findViewById(R.id.tvUsername)
         val relativetime: TextView = itemView.findViewById(R.id.tvRelativetime)
         val Post: ImageView = itemView.findViewById(R.id.ivPost)
         val profileImage: ImageView = itemView.findViewById(R.id.profile_image)
         val description: TextView = itemView.findViewById(R.id.tvDescription)
+        val ingredients: TextView = itemView.findViewById(R.id.tvIngredients)
+        val instruction: TextView = itemView.findViewById(R.id.tvInstructions)
 
         init {
             userDocRef.get().addOnCompleteListener { task ->

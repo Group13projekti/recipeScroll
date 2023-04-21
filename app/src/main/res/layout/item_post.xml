@@ -71,6 +71,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
             android:text="desc for pic" />
+
+        <TextView
+            android:id="@+id/txtIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients:"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/tvIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@array/ingredients" />
+
+        <TextView
+            android:id="@+id/txtInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txtInstructions"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/instructions" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

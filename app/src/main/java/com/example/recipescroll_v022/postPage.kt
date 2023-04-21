@@ -22,6 +22,7 @@ import com.example.recipescroll_v022.models.UserDB
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 private const val TAG = "PostPage"
@@ -157,6 +158,7 @@ class PostPage : Fragment() {
         }
 
         subButton.setOnClickListener {
+            val idPost = generateRandomString(10)
             val sDesc = foodDesc.text.toString()
             val sImage = imageUri
             val sInstructions = stepsList.text.toString()
@@ -170,7 +172,8 @@ class PostPage : Fragment() {
                     }
                 }
             }
-            val dataPost = PostDB(sDesc, sImage, sTime, sInstructions, checkedItems, UserDB(uname = currUname, profileImageUrl = profilePic ))
+
+            val dataPost = PostDB(idPost ,sDesc, sImage, sTime, sInstructions, checkedItems, UserDB(uname = currUname, profileImageUrl = profilePic ))
 
             dbPosts.add(dataPost)
                 .addOnSuccessListener { documentRef ->
@@ -343,4 +346,12 @@ fun centerParams(width: Int, height: Int): GridLayout.LayoutParams {
     params.height = height
     params.setGravity(Gravity.CENTER)
     return params
+}
+
+fun generateRandomString(length: Int): String {
+    val allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789"
+    val random = Random()
+    return (1..length)
+        .map { allowedChars[random.nextInt(allowedChars.length)] }
+        .joinToString("")
 }
