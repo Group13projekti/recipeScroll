@@ -52,7 +52,7 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/placeholder_image" />
 
-    <TextView
+    <Button
         android:id="@+id/change_image_text_btn"
         android:textColor="@color/red"
         android:layout_width="wrap_content"
