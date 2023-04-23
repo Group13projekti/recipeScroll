@@ -5,10 +5,12 @@
     <item android:title="@string/home"
         android:id="@+id/FrontPage"
         android:icon="@drawable/baseline_home_24"/>
-
     <item android:title="@string/postpage"
         android:id="@+id/postPage"
         android:icon="@drawable/ic_baseline_camera_alt_24" />
+    <item android:title="@string/favorites"
+        android:id="@+id/favorites"
+        android:icon="@drawable/baseline_favorite_24"/>
     <item android:title="@string/profile"
         android:id="@+id/profile"
         android:icon="@drawable/baseline_person_24"/>

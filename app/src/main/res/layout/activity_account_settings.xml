@@ -140,7 +140,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_buttons"
         android:src="@drawable/baseline_check_30_green" />
-    <!--
+
     <Button
         android:id="@+id/logout_btn"
         android:layout_width="match_parent"
@@ -169,6 +169,6 @@
         android:textAllCaps="false"
         android:text="Delete Account"
         android:textSize="16sp"/>
-        -->
+
 
 </RelativeLayout>
