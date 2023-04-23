@@ -14,8 +14,6 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.recipescroll_v022.loaders.ImageLoader
 import com.example.recipescroll_v022.models.PostDB
 import com.example.recipescroll_v022.models.UserDB
