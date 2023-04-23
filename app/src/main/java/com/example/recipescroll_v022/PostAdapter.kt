@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    private val favoriteStates = mutableMapOf<String, Boolean>()
+    private val favoriteStates = mutableMapOf<String, Boolean>()   //luodaan faovriteille statet
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,12 +39,24 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
         holder.username.text = currItem.user?.uname
         Glide.with(context).load(currItem.imageUrl).into(holder.Post)
         Glide.with(context).load(currItem.user?.profileImageUrl).into(holder.profileImage)
-        holder.relativetime.text = DateUtils.getRelativeTimeSpanString(currItem.creationTime)
+        holder.relativetime.text = DateUtils.getRelativeTimeSpanString(currItem.creationTime.toLong())
         holder.description.text = currItem.description
+        holder.ingredients.text = currItem.ingredients.toString()
+        holder.instruction.text = currItem.instructions
 
         val isFavorite = favoriteStates[currItem.postId] ?: false
         holder.favButton.isChecked = isFavorite
 
+
+        holder.userDocRef.get().addOnCompleteListener { task ->             //tarkistaa onko postaus favoriteissa ja laittaa favorite napin päälle jos on eli "muistaa liken"
+            if (task.isSuccessful) {
+                val user = task.result?.toObject(UserDB::class.java)
+                val favorites = user?.favorites ?: emptyList()
+                if (favorites.contains(currItem.postId)) {
+                    holder.favButton.isChecked = true
+                }
+            }
+        }
 
         if (currItem.user?.profileImageUrl != null) {
             Glide.with(context)
@@ -57,19 +69,21 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
                 .into(holder.profileImage)
         }
     }
-
     inner class ViewHolder(
         itemView: View,
         val favButton: CheckBox,
-        private val userDocRef: DocumentReference,
+        val userDocRef: DocumentReference,
         private var favorites: List<String>
     ) : RecyclerView.ViewHolder(itemView) {
+
 
         val username: TextView = itemView.findViewById(R.id.tvUsername)
         val relativetime: TextView = itemView.findViewById(R.id.tvRelativetime)
         val Post: ImageView = itemView.findViewById(R.id.ivPost)
         val profileImage: ImageView = itemView.findViewById(R.id.profile_image)
         val description: TextView = itemView.findViewById(R.id.tvDescription)
+        val ingredients: TextView = itemView.findViewById(R.id.tvIngredients)
+        val instruction: TextView = itemView.findViewById(R.id.tvInstructions)
 
         init {
             userDocRef.get().addOnCompleteListener { task ->
@@ -109,21 +123,5 @@ class PostAdapter(val context: FrontPage, val posts: List<PostDB>) :
             }
         }
 
-        fun bind(post: PostDB) {
-            username.text = post.user?.uname
-            Glide.with(context).load(post.imageUrl).into(Post)
-            Glide.with(context).load(post.user?.profileImageUrl).into(profileImage)
-            relativetime.text = DateUtils.getRelativeTimeSpanString(post.creationTime)
-            description.text = post.description
-
-            // Check if the post is already favorited
-            if (favorites.contains(post.postId)) {
-                favButton.isChecked = true
-                favButton.text = "Favorited"
-            } else {
-                favButton.isChecked = false
-                favButton.text = "Add to Favorites"
-            }
-        }
     }
     }

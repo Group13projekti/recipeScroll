@@ -33,4 +33,5 @@
     <string name="steps">Steps +</string>
     <string name="step_instructions">Write instructions for this recipe</string>
     <string name="instructions">Instructions +</string>
+    <string name="txtInstructions">Instructions:</string>
 </resources>
