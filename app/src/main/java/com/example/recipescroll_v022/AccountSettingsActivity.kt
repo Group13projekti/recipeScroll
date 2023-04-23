@@ -54,8 +54,8 @@ class AccountSettingsActivity : AppCompatActivity() {
         val etUserName = findViewById<EditText>(R.id.username_profile_frag)
         val etBio = findViewById<EditText>(R.id.bio_profile_frag)
         val profileImageView = findViewById<ImageView>(R.id.profile_image_view)
-        val logOutBtn = findViewById<Button>(R.id.logout_btn)
-        val delAccBtn = findViewById<Button>(R.id.delete_account_btn)
+        //val logOutBtn = findViewById<Button>(R.id.logout_btn)
+        //val delAccBtn = findViewById<Button>(R.id.delete_account_btn)
         val changeImageBtn = findViewById<Button>(R.id.change_image_text_btn)
         val storage = Firebase.storage
         val randomString = generateRandomString(10)
@@ -186,6 +186,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                 }
             }
         }
+        /*
         logOutBtn.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Log Out")
@@ -243,7 +244,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Käyttäjätiliä ei löytynyt", Toast.LENGTH_SHORT).show()
             }
         }
-
+        */
     }
     fun generateRandomString(length: Int): String {
         val allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789"
