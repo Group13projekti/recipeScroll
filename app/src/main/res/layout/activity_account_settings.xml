@@ -54,7 +54,6 @@
 
     <Button
         android:id="@+id/change_image_text_btn"
-        android:textColor="@color/material_dynamic_primary0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_image_view"
@@ -151,7 +150,6 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/rounded_buttons"
         android:textAllCaps="false"
-        android:src="@drawable/baseline_check_30_green"
         android:text="Log Out"
         android:textSize="16sp" />
 
@@ -164,7 +162,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/red"
+
         android:background="@drawable/rounded_buttons"
         android:textAllCaps="false"
         android:text="Delete Account"

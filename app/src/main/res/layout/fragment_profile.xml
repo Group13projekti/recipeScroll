@@ -163,7 +163,7 @@
 
                         <Button
                             android:id="@+id/edit_profile"
-                            android:layout_width="match_parent"
+                            android:layout_width="273dp"
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:text="@string/edit_profile"
