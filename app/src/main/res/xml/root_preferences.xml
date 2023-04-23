@@ -4,41 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     android:padding="10dp"
     tools:context=".SettingsFragment">
 
-    <PreferenceCategory app:title="Settings">
 
         <SwitchPreferenceCompat
-            android:id="@+id/switchtheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
 
-            android:text="Switch Theme"
-            app:title="Night Mode"/>
+            app:key="dark_mode_switch"
+            app:title="Dark mode"
+            app:summaryOff="Disabled"
+            app:summaryOn="Enabled"/>
 
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:title="Notifications" />
+       // SwitchPreferenceCompat
 
-    </PreferenceCategory>
+         //   app:dependency="sync"
+            //app:title="Notifications"/>
 
-    <PreferenceCategory app:title="User Settings">
 
-        <ListPreferenceCompat
-            app:fragment="com.example.recipeScroll_v022.logOutFragment"
-            app:key="user"
-            app:title="Log Out" />
-
-        <ListPreferenceCompat
-            app:fragment="com.example.recipeScroll_v022.DeleteUserFragment"
-            app:key="user"
+    <ListPreference
+        app:fragment="com.example.recipescroll_v022.LogOutFragment"
+        app:key="user_Log"
+        app:title="Log Out" />
+    <ListPreference
+            app:fragment="com.example.recipescroll_v022.DeleteUserFragment"
+            app:key="user_Settings"
             app:title="Delete User" />
 
-    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -2,17 +2,15 @@ package com.example.recipescroll_v022
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -53,7 +51,7 @@ class DeleteUserFragment : Fragment() {
 
         cancel1Btn.setOnClickListener {
             Log.d(TAG, "cancel button")
-            findNavController().navigate(R.id.action_logOut_Fragment_to_settingsFragment)
+            findNavController().navigate(R.id.action_LogOutFragment_to_SettingsFragment)
         }
 
         return view

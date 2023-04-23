@@ -19,4 +19,12 @@
         android:name="com.example.recipescroll_v022.FrontPage"
         android:label="fragment_front_page"
         tools:layout="@layout/fragment_front_page" />
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.recipescroll_v022.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@xml/root_preferences">
+
+    </fragment>
+
 </navigation>

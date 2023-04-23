@@ -1,12 +1,15 @@
 package com.example.recipescroll_v022
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 
 class FeedActivity: AppCompatActivity()  {
@@ -23,6 +26,19 @@ class FeedActivity: AppCompatActivity()  {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navbar, menu)
+        return true
+    }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.SettingsFragment -> {
+                Log.d(TAG, "Settings menu item clicked")
+                navController.navigate(R.id.SettingsFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
